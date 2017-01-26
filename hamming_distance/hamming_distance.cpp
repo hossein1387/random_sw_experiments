@@ -9,7 +9,7 @@
 #define MAX_RAND_VAL     (1<<NUM_BITS)
 #define OUTPUT_FILE_NAME "array.txt"
 
-unsigned int min_hamming_res[SIZE_OF_ARRAY];
+unsigned int hamming_res[SIZE_OF_ARRAY];
 
 int popcount(int v) {
 	int c;
@@ -20,15 +20,19 @@ int popcount(int v) {
 
 int min_Hamming(unsigned int tab[], unsigned int tab_size) {
 
-	unsigned int min_hamming_dist = 0xFFFFFFFF;
+	unsigned int min_hamming_dist = 33;
+#if DEBUG==1
+	unsigned int cnt = 0;
+#endif            
 	for(int i=0; i<tab_size-1; i++)
 	{
 		for(int j=i+1; j<tab_size; j++){
 			unsigned int hamming_dist = popcount(tab[i] ^ tab[j]);			
 #if DEBUG==1
-            min_hamming_res[i] = hamming_dist;
-            printf("hamming dist %s(%4d) and %s(%4d) = %0d\n", std::bitset<32>(tab[i]).to_string().c_str(), 
-            	   tab[i], std::bitset<32>(tab[j]).to_string().c_str(), tab[j], popcount(hamming_dist));
+            hamming_res[cnt] = hamming_dist;
+            printf("[%3d] hamming dist %s(%10d) and %s(%10d) = %2d\n",cnt, std::bitset<32>(tab[i]).to_string().c_str(), 
+            	   tab[i], std::bitset<32>(tab[j]).to_string().c_str(), tab[j], hamming_dist);
+            cnt++;
 #endif            
 			if(hamming_dist==0) // if there is a hamming distance of zero, noone can beat it, return! 
 				return 0;
@@ -62,14 +66,16 @@ int main()
   min_hdist = min_Hamming(test_array, SIZE_OF_ARRAY);
 
 #if DEBUG==1
+  int cnt = 0;
   for(int i=0; i<SIZE_OF_ARRAY-1; i++){
-	  array_file << test_array[i] << "," << test_array[i+1] << "," << min_hamming_res[i] << std::endl;
+  	for(int j=i+1; j<SIZE_OF_ARRAY; j++){
+    	array_file << test_array[i] << "," << test_array[j] << "," << hamming_res[cnt] << std::endl;
+  		cnt++;
+	}
   }
+  array_file << "min_hamming_dist" << "," << min_hdist << std::endl;
   array_file.close();
-#endif
-
-  printf("min hamming distance is=%0d\n", min_hdist);
-  
+#endif  
   return 0;
 }
 
