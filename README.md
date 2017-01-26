@@ -4,7 +4,9 @@
 This repo contains my random experiments designing software.
 
 
+#Finding minimum haming distance
 
+In this project, I have implemented an algorithm to compute the minimum hamming distance of 32 bits integers. 
 
 ## License
 
