@@ -15,5 +15,11 @@ all: $(TARGET)
 $(TARGET): $(TARGET).cpp
 	$(CC) $(CFLAGS) -o $(TARGET) $(TARGET).cpp
 
+test:
+	@echo "Running test..."
+	@make clean
+	@make DEBUG=1
+	@./$(TARGET)
+	@./test.py
 clean:
 	$(RM) $(TARGET) $(TARGET).dSYM
