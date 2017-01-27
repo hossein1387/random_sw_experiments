@@ -25,7 +25,7 @@ To print out the results, you can run the makefile as follow:
 This will create the binary and by executing the binary, it will print out all the generated numbers and their corresponding hamming distance:
 
 
-    [  0] hamming dist 0011 ... 0010( 834440770) and 0101 ... 10000(1377806480) = 15
+    [  0] hamming dist 0011 ... 0010( 834440770) and 0101 ... 1000 (1377806480) = 15
     [  1] hamming dist 0011 ... 0010( 834440770) and 0001 ... 1111 ( 477343759) = 19
     [  2] hamming dist 0011 ... 0010( 834440770) and 0110 ... 0000 (1865135968) = 16
     [  3] hamming dist 0011 ... 0010( 834440770) and 0001 ... 0101 ( 521418917) = 18
