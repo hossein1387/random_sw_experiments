@@ -45,9 +45,7 @@ The test result will be saved into a file and it will be read back by python. Th
 ##Warning!
 Depending on 'SIZE_OF_ARRAY', Assuming n = 'SIZE_OF_ARRAY', total number of calculations will be as follow:
 
-\begin{equation}
 \binom{n}{2} = \frac{n!}{2!*(n-2!))}
-\end{equation}
 
 ## License
 
