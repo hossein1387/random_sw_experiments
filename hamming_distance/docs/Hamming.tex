@@ -1,7 +1,58 @@
-\subsection{Hamming Distance}
-
-Hamming distance of two integers, each 32 bits wide, is the number of bits that the two number are in difference(?!). Minimum hamming distance is the minimum number of changes that are necessary to change one integer to another. In other words, if A and B are two 32 bits integer, the minimum hamming distance between the two is as follow:
-
-\begin{equation}
-$$\sum_{n=1}^{\infty} 2^{-n} = 1$$
+\section{Hamming Distance}
+\subsection{Theory}
+Hamming distance of two integers, each 32 bits, is the number of changes that are necessary to change one integer to another. In other words, if A and B are two 32 bits integer, the hamming distance between the two, denoted by $hamdist(A,B)$ is defined as follows:
+\begin{equation}\label{hammingdist}
+		hamdist(A,B) = \sum_{i=0}^{31}\left[A(i) \neq B(i)\right],
 \end{equation}
+where $A(i)$ represents the $i^{th}$ bit of A. Hamming distance is bounded between 0 (in the case that $\forall i, A(i)==B(i)$) and 32 (in the case that $\forall i, A(i)\neq B(i)$). Hamming distance has the following properties:
+\begin{itemize}
+
+\item{}
+Hamming distance is a symmetric operator as the hamming distance of A and B is the same as hamming distance of B and A:
+\begin{equation}\label{symmetry}
+		hamdist(A, B) == hamdist(B,A)
+\end{equation}
+
+\item{}
+The hamming distance of a 32 bit integer is bounded between 0 and 32. In general, the hamming distance of two n-bit numbers is bounded between 0 and n:
+\begin{equation}\label{bounded}
+	\forall A,B \in \left[0, 2^n-1 \right], \mbox{where}\ A, B \in \mathbb{N}, 0 \leq hamdist(A, B) \leq n
+\end{equation}
+
+\item{}
+The hamming distance of any integer with it self is zero.  
+
+\begin{equation}\label{ZReflect}
+		hamdist(A, A) == 0
+\end{equation}
+\end{itemize}
+
+In the following section, we use the above-mentioned properties to compute the minimum hamming distance of an array of integers.
+
+\subsection{Minimum Hamming Distance of an array of 32-bit integers}
+The minimum hamming distance of an array is the minimum hamming distance of any two distinct integers of the array. The minimum hamming distance of array $A$ is defined as follows:
+\begin{equation}\label{HammingDistArray}
+	\begin{gathered}
+         i, j, n \in \mathbb{N}\\
+        \forall i \in \left[0, n\right]\\
+        \forall j \in \left[0, n\right]\\
+        d = min(hamdist(A(i), A(j)))
+	\end{gathered}
+\end{equation}
+
+Here, we use the properties of hamming distance operator in order to further improve the algorithm.
+
+\begin{equation}\label{HammingDistArrayOpt}
+	\begin{gathered}
+         i, j, n \in \mathbb{N}\\
+        \forall i \in \left[0, n\right]\\
+        \forall j \in \left[i+1, n\right]\\
+        d = min(hamdist(A(i), A(j)))
+	\end{gathered}
+\end{equation}
+
+The above algorithm reduces the number of iterations required for finding the minimum distance. We used \ref{symmetry} to avoid computing hamming distance of $hamdist(A(i), A(j))$ when $hamdist(A(j), A(i))$ has already been computed. We used \ref{ZReflect} to avoid computing hamming distance when $i==j$. These two improvements were achieved by starting $j$ from $i+1$. Since we are looking for minimum hamming distance, we used \ref{bounded} to exit the loop as soon as a minimum distance of 0 is computed. 
+
+\subsection{Source Code And Results}
+With the algorithm defined in the previous section, we have attempted to implement it using C++. The source code for this project can be founded in this github repository: \href{https://github.com/hossein1387/random_sw_experiments/tree/master/hamming_distance}{GitHub Repository For Min Hamming Distance}. 
+\markdownInput{Hamming.md}
