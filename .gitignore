@@ -2,3 +2,6 @@ riscv-mini/*
 riscv_helloworld/*
 riscv_print_configmsg/*
 hamming_distance/hamming_distance
+hamming_distance/array.txt
+*.dSYM
+hamming_distance/target/
